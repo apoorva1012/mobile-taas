@@ -5,6 +5,7 @@
 
 //making sure no CORS erroe come thrugh browser
 var mysql = require('./mysql');
+var bcrypt = require('bcrypt');
 
 exports.all = function(req, res, next) {
   // add details of what is allowed in HTTP request headers to the response headers
@@ -27,12 +28,24 @@ exports.register = function(req, res){
 
 	console.log(req.body);
 	
-	var UserRegisterQuery = "INSERT INTO login (fname, lname, email, password, register_time, loginr_time," +
+	//bcrypt
+	var saltRounds = 10;
+	var salt = bcrypt.genSaltSync(saltRounds);
+	var hashedPassword = bcrypt.hashSync(req.body.password, salt);
+	
+	
+	//check if user is already regestered
+	
+	var alreadyRegesteredQuery = "SELECT email from login where email = '" + 
+								req.body.email + "'";
+	
+	
+	var UserRegisterQuery = "INSERT INTO login (fname, lname, email, password, register_time, login_time," +
 			"account_active, verified_flag) " +
 			"VALUES (   '" + req.body.fname + 
 						"','" + req.body.lname + 
 						"','" + req.body.email + 
-						"','" + req.body.password +
+						"','" + hashedPassword +
 						"','" + req.body.date +
 						"','" + req.body.date +
 						"','" + "FALSE" + 
@@ -46,8 +59,11 @@ exports.register = function(req, res){
 			throw err;
 		} else {
 			if (results.length > 0) {
-
-				console.log("something went wrong!");
+				
+				console.log(results);
+				console.log("user already registered!");
+				
+				
 				var json_responses = {
 					"statusCode" : 200
 				};
@@ -55,15 +71,38 @@ exports.register = function(req, res){
 
 			} else {
 
-				console.log("tenant details inserted!");
-				json_responses = {
-					"statusCode" : 401
-				};
-				res.send(json_responses);
+				console.log("you can insert this user");
+				
+				mysql.fetchData(function(err, results) {
+
+					if (err) {
+						throw err;
+					} else {
+						if (results.length > 0) {
+							
+							console.log(results);
+							console.log("user registration error");
+							var json_responses = {
+								"statusCode" : 200
+							};
+							res.send(json_responses);
+
+						} else {
+
+							console.log("user successfully inserted");
+							
+							var json_responses = {
+									"statusCode" : 401
+								};
+							res.send(json_responses);
+						}
+					}
+				}, UserRegisterQuery);
 
 			}
 		}
-	}, UserRegisterQuery);
+		
+	}, alreadyRegesteredQuery);
 	
 	
 };

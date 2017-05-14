@@ -2,6 +2,7 @@ var app = angular.module('register', []);
 
 app.controller("register", function($scope, $http) {
 	console.log("connection established with register app");
+	$scope.already_registered_flag = true;
 
 	$scope.registerTester = function() {
 		console.log("registerTester button pressed; enter user's info in DB");
@@ -10,8 +11,15 @@ app.controller("register", function($scope, $http) {
 		
 		var date  = new Date();
 		
+		if (($scope.password === undefined)){
+			$scope.message = "cant enter empty credentials";
+			$scope.already_registered_flag = false;
+			console.log("cant enter empty credentials");
+		}
 		
 		if ($scope.password !== $scope.repassword) {
+			$scope.message = "passwords do not match";
+			$scope.already_registered_flag = false;
 			console.log("passwords do not match");
 		} else {
 			
@@ -31,9 +39,13 @@ app.controller("register", function($scope, $http) {
 			}).success(function(data) {
 
 				if (data.statusCode === 200) {
-					console.log("some error has occurred");
+					console.log("user already registered");
+					$scope.message = "user already registered";
+					$scope.already_registered_flag = false;
 				} else {
-					console.log("the user has been successfully registered! Please login");
+					console.log("User Has Been Successfully Registered! Please login");
+					$scope.message = "User Has Been Successfully Registered! Please login";
+					$scope.already_registered_flag = false;
 				}
 			});
 		}

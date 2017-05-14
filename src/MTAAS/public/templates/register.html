@@ -57,6 +57,10 @@
                                         <br></br>
 										<input class="btn btn-lg btn-success btn-block" id="login" value="Register Tester»" ng-click="registerTester();">
                                     </fieldset>
+
+									<div class="alert alert-warning" ng-hide="already_registered_flag">
+										<strong style="text-align: center">{{message}}</strong>
+									</div>
 									
                                 </form>
                             </div>
