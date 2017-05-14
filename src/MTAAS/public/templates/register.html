@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="login-page" content="noindex">
 
-    <title>Tester Login Page</title>
+    <title>Tester Register Page</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
     
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
@@ -23,12 +23,13 @@
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>	
 	
 	<link rel='stylesheet' href='/stylesheets/style.css' />
-	<script src="angular/main.js"></script>
+	<script src="/angular/main.js"></script>
+	<script src="/angular/register.js"></script>
 	
 
 </head>
 
-<body ng-app="app" ng-controller="app" background="images/bg.jpg">
+<body ng-app="register" ng-controller="register" background="/images/bg.jpg">
 
         <body>
             <div class="container">
@@ -46,16 +47,17 @@
                                         <label class="panel-login">
                                             <div class="login_result"></div>
                                         </label>
-                                        <input class="form-control" placeholder="Username" id="username" type="text" ng-model="uname">
+										<input class="form-control" placeholder="First Name" id="fname" type="text" ng-model="fname">
+										<input class="form-control" placeholder="Last Name" id="lname" type="text" ng-model="lname">
+										<input class="form-control" placeholder="EMail" id="email" type="email" ng-model="email">
+                                        
                                         <input class="form-control" placeholder="Password" id="password" type="password" ng-model="password">
+										
+										<input class="form-control" placeholder="RE-Enter Password" id="password" type="password" ng-model="repassword">
                                         <br></br>
-                                        <input class="btn btn-lg btn-success btn-block" type="submit" id="login" value="Login »" ng-click="submit();">
-										<input class="btn btn-lg btn-success btn-block" id="login" value="Register »" ng-click="register();">
+										<input class="btn btn-lg btn-success btn-block" id="login" value="Register Tester»" ng-click="registerTester();">
                                     </fieldset>
 									
-									<div class="alert alert-warning" ng-hide="msg_flag">
-										<strong style="text-align: center">Wrong Credentials</strong>
-									</div>
                                 </form>
                             </div>
                         </div>
