@@ -23,7 +23,7 @@
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>	
 	
 	<link rel='stylesheet' href='/stylesheets/style.css' />
-	<script src="angular/main.js"></script>
+	<script src="angular/login.js"></script>
 	
 
 </head>
@@ -50,11 +50,11 @@
                                         <input class="form-control" placeholder="Password" id="password" type="password" ng-model="password">
                                         <br></br>
                                         <input class="btn btn-lg btn-success btn-block" type="submit" id="login" value="Login »" ng-click="submit();">
-										<input class="btn btn-lg btn-success btn-block" id="login" value="Register »" ng-click="register();">
+										<input class="btn btn-lg btn-success btn-block" id="register" value="Register »" ng-click="register();">
                                     </fieldset>
 									
 									<div class="alert alert-warning" ng-hide="msg_flag">
-										<strong style="text-align: center">Wrong Credentials</strong>
+										<strong style="text-align: center">{{message}}</strong>
 									</div>
                                 </form>
                             </div>

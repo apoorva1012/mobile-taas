@@ -3,10 +3,11 @@
  * GET home page.
  */
 
-//making sure no CORS erroe come thrugh browser
+
 var mysql = require('./mysql');
 var bcrypt = require('bcrypt');
 
+//making sure no CORS erroe come thrugh browser
 exports.all = function(req, res, next) {
   // add details of what is allowed in HTTP request headers to the response headers
   res.header('Access-Control-Allow-Origin', '*');
@@ -26,12 +27,13 @@ exports.options = function(req, res) {
 exports.register = function(req, res){
 	console.log("I am inside register POST request");
 
-	console.log(req.body);
 	
+	var myPassword = req.body.password;
+	console.log(myPassword);
 	//bcrypt
-	var saltRounds = 10;
+	const saltRounds = 10;
 	var salt = bcrypt.genSaltSync(saltRounds);
-	var hashedPassword = bcrypt.hashSync(req.body.password, salt);
+	var hashedPassword = bcrypt.hashSync(myPassword, salt);
 	
 	
 	//check if user is already regestered
