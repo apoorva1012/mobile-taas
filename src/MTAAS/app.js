@@ -1,4 +1,5 @@
 
+
 /**
  * Module dependencies.
  */
@@ -10,6 +11,7 @@ var path = require('path');
 var register = require('./routes/register');
 var login = require('./routes/login');
 var session = require('client-sessions');
+var dashboard = require('./routes/dashboard');
 
 var app = express();
 
@@ -48,6 +50,7 @@ app.get('/successLogin', login.redirectToHomepage);
 app.post('/register', register.register);
 app.post('/login', login.login);
 app.post('/logout', login.logout);
+app.post('/profile', dashboard.profile);
 
 
 http.createServer(app).listen(app.get('port'), function(){
