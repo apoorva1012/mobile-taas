@@ -31,6 +31,48 @@ dashboard.config(function($routeProvider) {
 });
 
 dashboard.controller("profile_controller", function($scope, $http) {
+    
+    	$scope.updateTester = function() {
+		console.log("registerTester button pressed; enter user's info in DB");
+		console.log("First Name: " + $scope.fnmae + "Last Name: " + $scope.lname + 
+				"Email: " + $scope.email + "Zip: " + $scope.zip_code + "Rating: " + $scope.tester_rating);
+		
+		var date  = new Date();
+
+			
+			var UserDetails = {
+					"fname" : $scope.fname,
+					"lname" : $scope.lname,
+					"email" : $scope.email,
+                    "address" : $scope.address,
+					"city" : $scope.city,
+                    "zip_code" : $scope.zip_code,
+                    "tester_rating" : $scope.tester_rating,
+					"date" : date
+                
+			};
+			
+			$http({
+				method : "POST",
+				url : '/profile',
+				data : JSON.stringify(UserDetails),
+				headers: {'Content-Type': 'application/json'}
+			}).success(function(data) {
+
+				if (data.statusCode === 200) {
+					console.log("Tester already updated");
+					$scope.message = "Tester already updtaed";
+					$scope.already_registered_flag = false;
+				} else {
+					console.log("Tester profile has Been Successfully updated!");
+					$scope.message = "Tester profile has Been Successfully updtaed!";
+					$scope.already_registered_flag = false;
+				}
+			});
+		
+		
+	};
+    
 	console.log("inside profile_controller controller");
 });
 
