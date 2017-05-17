@@ -33,7 +33,7 @@ app.controller("app", function($scope, $http) {
 
 				if (data.statusCode === 200) {
 					console.log("login successful");
-					window.location.assign("/successLogin");
+					window.location.assign("/dashboard");
 				} else {
 					console.log("You Entered Wrong Credentials");
 					$scope.message = "You Entered Wrong Credentials";

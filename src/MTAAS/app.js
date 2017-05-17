@@ -9,6 +9,8 @@ var routes = require('./routes');
 var http = require('http');
 var path = require('path');
 var register = require('./routes/register');
+var courses = require('./routes/courses');
+var articles = require('./routes/articles');
 var login = require('./routes/login');
 var session = require('client-sessions');
 var dashboard = require('./routes/dashboard');
@@ -25,7 +27,7 @@ app.use(session({
 
 
 // all environments
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 5000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(express.favicon());
@@ -44,8 +46,9 @@ app.all('*',register.all);
 app.options('*',register.options);
 
 app.get('/', routes.index);
-app.get('/successLogin', login.redirectToHomepage);
-
+app.get('/dashboard', login.redirectToHomepage);
+app.get('/courses', courses.courses);
+app.get('/articles', articles.articles);
 
 app.post('/register', register.register);
 app.post('/login', login.login);

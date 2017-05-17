@@ -26,6 +26,9 @@ dashboard.config(function($routeProvider) {
 		controller : "emails_controller"
 	}).when("/logout", {
 		controller : "logout_controller"
+	}).when("/courses", {
+		templateUrl : "/templates/courses.html",
+		controller : "courses_controller"
 	});
 
 });
@@ -82,6 +85,11 @@ dashboard.controller("projects_controller", function($scope, $http) {
 
 dashboard.controller("articles_controller", function($scope, $http) {
 	console.log("inside articles_controller controller");
+	$http.get("/articles")
+  	.then(function(response) {
+		  $scope.articles = response.data;
+		  console.log(JSON.stringify(response.data));
+  	});
 });
 
 dashboard.controller("notifications_controller", function($scope, $http) {
@@ -90,6 +98,15 @@ dashboard.controller("notifications_controller", function($scope, $http) {
 
 dashboard.controller("emails_controller", function($scope, $http) {
 	console.log("inside emails_controller controller");
+});
+
+dashboard.controller("courses_controller", function($scope, $http){
+	$http.get("/courses")
+  	.then(function(response) {
+		  $scope.courses = response.data;
+		  
+		  console.log(JSON.stringify(response.data));
+  	});
 });
 
 dashboard.controller("logout_controller", function($scope, $http) {
